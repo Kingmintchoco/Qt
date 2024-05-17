@@ -53,10 +53,10 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../main.cpp \
-		../../mainwindow.cpp moc_mainwindow.cpp
+		../../hellowidget.cpp moc_hellowidget.cpp
 OBJECTS       = main.o \
-		mainwindow.o \
-		moc_mainwindow.o
+		hellowidget.o \
+		moc_hellowidget.o
 DIST          = /opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/qdevice.pri \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/device_config.prf \
@@ -269,8 +269,8 @@ DIST          = /opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/spec_pre.pr
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/exceptions.prf \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/yacc.prf \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/lex.prf \
-		../../../../HelloWorld.pro ../../mainwindow.h ../../main.cpp \
-		../../mainwindow.cpp
+		../../../../HelloWorld.pro ../../hellowidget.h ../../main.cpp \
+		../../hellowidget.cpp
 QMAKE_TARGET  = HelloWorld
 DESTDIR       = 
 TARGET        = HelloWorld.app/Contents/MacOS/HelloWorld
@@ -291,7 +291,7 @@ include /opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-HelloWorld.app/Contents/MacOS/HelloWorld: ui_mainwindow.h $(OBJECTS)  
+HelloWorld.app/Contents/MacOS/HelloWorld: ui_hellowidget.h $(OBJECTS)  
 	@test -d HelloWorld.app/Contents/MacOS/ || mkdir -p HelloWorld.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -758,9 +758,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../hellowidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../main.cpp ../../hellowidget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../hellowidget.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -794,26 +794,26 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=10.13 -Wall -Wextra -dM -E -o moc_predefs.h /opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_hellowidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ../../mainwindow.h \
-		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/QMainWindow \
-		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
+	-$(DEL_FILE) moc_hellowidget.cpp
+moc_hellowidget.cpp: ../../hellowidget.h \
+		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/qwidget.h \
 		moc_predefs.h \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/bin/moc
-	/opt/homebrew/Cellar/qt@5/5.15.13_1/bin/moc $(DEFINES) --include /Users/s2choi/Documents/Coding/Qt/HelloWorld/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/macx-clang -I/Users/s2choi/Documents/Coding/Qt/HelloWorld -I/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers -I/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Headers -I/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.1.6/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/opt/homebrew/Cellar/qt@5/5.15.13_1/lib ../../mainwindow.h -o moc_mainwindow.cpp
+	/opt/homebrew/Cellar/qt@5/5.15.13_1/bin/moc $(DEFINES) --include /Users/s2choi/Documents/Coding/Qt/HelloWorld/build/Desktop_arm_darwin_generic_mach_o_64bit-Debug/moc_predefs.h -I/opt/homebrew/Cellar/qt@5/5.15.13_1/mkspecs/macx-clang -I/Users/s2choi/Documents/Coding/Qt/HelloWorld -I/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers -I/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtGui.framework/Headers -I/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.1.6/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/opt/homebrew/Cellar/qt@5/5.15.13_1/lib ../../hellowidget.h -o moc_hellowidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_make_all: ui_hellowidget.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
-ui_mainwindow.h: ../../mainwindow.ui \
+	-$(DEL_FILE) ui_hellowidget.h
+ui_hellowidget.h: ../../hellowidget.ui \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/bin/uic
-	/opt/homebrew/Cellar/qt@5/5.15.13_1/bin/uic ../../mainwindow.ui -o ui_mainwindow.h
+	/opt/homebrew/Cellar/qt@5/5.15.13_1/bin/uic ../../hellowidget.ui -o ui_hellowidget.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -827,21 +827,21 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../../main.cpp ../../mainwindow.h \
-		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/QMainWindow \
-		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
+main.o: ../../main.cpp ../../hellowidget.h \
+		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/qwidget.h \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/QApplication \
 		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
-mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
-		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/QMainWindow \
-		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		ui_mainwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
+hellowidget.o: ../../hellowidget.cpp ../../hellowidget.h \
+		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/QWidget \
+		/opt/homebrew/Cellar/qt@5/5.15.13_1/lib/QtWidgets.framework/Headers/qwidget.h \
+		ui_hellowidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hellowidget.o ../../hellowidget.cpp
 
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+moc_hellowidget.o: moc_hellowidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_hellowidget.o moc_hellowidget.cpp
 
 ####### Install
 

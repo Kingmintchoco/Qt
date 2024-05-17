@@ -10,13 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    hellowidget.cpp
 
 HEADERS += \
-    mainwindow.h
+    hellowidget.h
 
 FORMS += \
-    mainwindow.ui
+    hellowidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

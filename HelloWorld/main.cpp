@@ -1,11 +1,19 @@
-#include "mainwindow.h"
+#include "hellowidget.h"
 
+#include <iostream>
+#include <QDebug>
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
+using namespace std;
+
+int main(int argc, char *argv[]){
     QApplication a(argc, argv);
-    MainWindow w;
+
+    HelloWidget w;
     w.show();
+
+    cout << "Hello World\n";
+    qDebug() << "Hello World\n";
+
     return a.exec();
 }
